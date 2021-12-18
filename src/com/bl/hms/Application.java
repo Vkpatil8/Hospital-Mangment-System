@@ -4,10 +4,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class Application
-{
-    DoctorRepo doctorRepo = new DoctorRepo();
-    PatientRepo patientRepo = new PatientRepo();
+public class Application {
+    Scanner scanner = new Scanner(System.in);
     AppointmentRepo appointmentRepo = new AppointmentRepo();
     public static void main(String[] args)
     {
@@ -24,6 +22,8 @@ public class Application
     void handleUserSelection(int option)
     {
         UserInterface userInterface = new UserInterface();
+        DoctorRepo doctorRepo = DoctorRepo.getinstance();
+        PatientRepo patientRepo = PatientRepo.getInstance();
         switch (option)
         {
             case 1:
@@ -32,6 +32,10 @@ public class Application
             case 2:
                 break;
             case 3:
+                System.out.println("Enter Doctor Id ");
+                String id = scanner.nextLine();
+                Doctor doctorRemove = doctorRepo.getDoctor(id);
+                doctorRepo.remove(doctorRemove);
                 break;
             case 4:
                 List lstDoc = doctorRepo.getDoctorList();
@@ -68,6 +72,7 @@ public class Application
     }
 
     void addDoctor() {
+        DoctorRepo doctorRepo = DoctorRepo.getinstance();
         Scanner scanner = new Scanner(System.in);
         Doctor doctor = new Doctor();
 
@@ -99,6 +104,7 @@ public class Application
     }
 
     void addPatient() {
+        PatientRepo patientRepo = PatientRepo.getInstance();
         Scanner scanner = new Scanner(System.in);
         Patient patient = new Patient();
 
@@ -147,6 +153,8 @@ public class Application
     }
 
     void addAppointment() {
+        DoctorRepo doctorRepo = DoctorRepo.getinstance();
+        PatientRepo patientRepo = PatientRepo.getInstance();
         Scanner scanner = new Scanner(System.in);
         Appointment appointment = new Appointment();
 
