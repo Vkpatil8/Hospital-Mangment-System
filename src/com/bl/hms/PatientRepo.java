@@ -4,9 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PatientRepo {
-
+    public static PatientRepo instance;
     List <Patient>patientList = new ArrayList();
 
+    public static PatientRepo getInstance(){
+        if( instance == null ){
+            instance = new PatientRepo();
+        }
+        return instance;
+    }
     void addPatient(Patient p)
     {
         patientList.add(p);
