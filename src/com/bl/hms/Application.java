@@ -1,14 +1,10 @@
 package com.bl.hms;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Application {
-    Scanner scanner = new Scanner(System.in);
-    AppointmentRepo appointmentRepo = new AppointmentRepo();
-    public static void main(String[] args)
-    {
+
+    public static void main(String[] args) {
         int exit = 13;
         int option;
         UserInterface userInterface = new UserInterface();
@@ -19,45 +15,78 @@ public class Application {
         }while (option != exit);
     }
 
-    void handleUserSelection(int option)
-    {
-        UserInterface userInterface = new UserInterface();
-        DoctorRepo doctorRepo = DoctorRepo.getinstance();
+    void handleUserSelection(int option) {
+        AppointmentRepo appointmentRepo = AppointmentRepo.getInstance();
+        UserInterface userInterface = UserInterface.getInstance();
+        DoctorRepo doctorRepo = DoctorRepo.getInstance();
         PatientRepo patientRepo = PatientRepo.getInstance();
+        Scanner scanner = new Scanner(System.in);
         switch (option)
         {
             case 1:
-                addDoctor();
+                Doctor doctor = userInterface.addDoctor();
+                doctorRepo.addDoctor(doctor);
                 break;
             case 2:
+                System.out.println("Enter Doctor Id ");
+                String formUser = scanner.nextLine();
+                Doctor updateDoctor = doctorRepo.getDoctor(formUser);
+                if(updateDoctor != null){
+                    userInterface.updateDoctorDetails(updateDoctor);
+                } else {
+                    System.out.println("Doctor is not available");
+                }
                 break;
             case 3:
                 System.out.println("Enter Doctor Id ");
-                String id = scanner.nextLine();
-                Doctor doctorRemove = doctorRepo.getDoctor(id);
+                String doctorId = scanner.nextLine();
+                Doctor doctorRemove = doctorRepo.getDoctor(doctorId);
                 doctorRepo.remove(doctorRemove);
                 break;
             case 4:
-                List lstDoc = doctorRepo.getDoctorList();
-                userInterface.printAllDoctor(lstDoc);
+                List doctorList = doctorRepo.getDoctorList();
+                userInterface.printAllDoctor(doctorList);
                 break;
             case 5:
-                addPatient();
+                patientRepo.addPatient();
                 break;
             case 6:
+                System.out.println("Enter patient id");
+                String patientID = scanner.next();
+                Patient updatePatient = patientRepo.getPatient(patientID);
+                if (updatePatient != null ){
+                    userInterface.updatePatientDetails(updatePatient);
+                } else {
+                    System.out.println("Enter correct id");
+                }
                 break;
             case 7:
+                System.out.println("Enter patient Id ");
+                String patientId = scanner.nextLine();
+                Patient patientRemove = patientRepo.getPatient(patientId);
+                patientRepo.remove(patientRemove);
                 break;
             case 8:
                 List lstPatient = patientRepo.getPatientList();
                 userInterface.printAllPatient(lstPatient);
                 break;
             case 9:
-                addAppointment();
+                appointmentRepo.addAppointment();
                 break;
             case 10:
-                break;
+                System.out.println("Enter appointment id");
+                String appointmentId = scanner.next();
+                Appointment updateAppointment = appointmentRepo.getAppointment(appointmentId);
+                if (updateAppointment != null ){
+                    userInterface.updateAppointmentDetails(updateAppointment);
+                } else {
+                    System.out.println("Enter correct id");
+                }
             case 11:
+                System.out.println("Enter Appointment Id");
+                String appointmentID = scanner.next();
+                Appointment appointment = appointmentRepo.getAppointment(appointmentID);
+                appointmentRepo.remove(appointment);
                 break;
             case 12:
                 List listAppointment = appointmentRepo.getAppointmentList();
@@ -69,124 +98,6 @@ public class Application {
                 System.out.println("Wrong Option..!");
                 break;
         }
-    }
-
-    void addDoctor() {
-        DoctorRepo doctorRepo = DoctorRepo.getinstance();
-        Scanner scanner = new Scanner(System.in);
-        Doctor doctor = new Doctor();
-
-        System.out.println("Enter Doctor Name :");
-        doctor.docName = scanner.nextLine();
-
-        System.out.println("Enter Doctor Specialization :");
-        doctor.specialization = scanner.nextLine();
-
-        System.out.println("Enter Doctor Email ID :");
-        doctor.emailID = scanner.nextLine();
-
-        System.out.println("Enter Doctor ID :");
-        doctor.id = scanner.nextLine();
-
-        System.out.println("Enter Doctor Mobile Name :");
-        doctor.mobNo = scanner.nextLong();
-
-        doctor.availability = new HashMap<>();;
-        doctor.availability.put(Doctor.WeekDays.SUNDAY,"10 AM to 12 PM");
-        doctor.availability.put(Doctor.WeekDays.MONDAY,"12 PM to 2 PM");
-        doctor.availability.put(Doctor.WeekDays.TUESDAY,"2 PM to 4 PM");
-        doctor.availability.put(Doctor.WeekDays.WEDNESDAY,"4 PM to 6 PM");
-        doctor.availability.put(Doctor.WeekDays.THURSDAY,"6 PM to 8 PM");
-        doctor.availability.put(Doctor.WeekDays.FRIDAY,"8 PM to 10 PM");
-        doctor.availability.put(Doctor.WeekDays.SATURDAY,"10 PM to 12 AM");
-
-        doctorRepo.addMethod(doctor);
-    }
-
-    void addPatient() {
-        PatientRepo patientRepo = PatientRepo.getInstance();
-        Scanner scanner = new Scanner(System.in);
-        Patient patient = new Patient();
-
-        System.out.println("Enter Patient Name :");
-        patient.name = scanner.nextLine();
-
-        System.out.println("Enter Patient Email ID :");
-        patient.emailID = scanner.nextLine();
-
-        System.out.println("Enter Patient Disease :");
-        patient.disease = scanner.nextLine();
-
-        System.out.println("Enter the Patient Address :");
-        patient.address = scanner.nextLine();
-
-        System.out.println("Enter the Patient ID :");
-        patient.patientId = scanner.nextLine();
-
-        System.out.println("Enter Patient Age :");
-        patient.age = scanner.nextLong();
-
-        System.out.println("Enter Patient Mobile Name :");
-        patient.mobNo = scanner.nextLong();
-
-        System.out.println("1.Male \n2.Female \n3.Others :");
-        int option = scanner.nextInt();
-
-        patient.info = new HashMap<>();
-
-        switch (option)
-        {
-            case 1:
-                patient.info.put(Patient.Gender.MALE,"MALE");
-                break;
-            case 2:
-                patient.info.put(Patient.Gender.FEMALE,"FEMALE");
-                break;
-            case 3:
-                patient.info.put(Patient.Gender.OTHERS,"OTHERS");
-                break;
-            default:
-                System.out.println("Wrong Option..!");
-                break;
-        }
-        patientRepo.addPatient(patient);
-    }
-
-    void addAppointment() {
-        DoctorRepo doctorRepo = DoctorRepo.getinstance();
-        PatientRepo patientRepo = PatientRepo.getInstance();
-        Scanner scanner = new Scanner(System.in);
-        Appointment appointment = new Appointment();
-
-        System.out.println("Enter doctor id");
-        appointment.doctorId = scanner.nextLine();
-
-        if (doctorRepo.isDoctorAvailable(appointment.doctorId)) {
-            System.out.println("Enter the PatientId :");
-            appointment.patientId = scanner.nextLine();
-
-            if(patientRepo.isPatientAvailable(appointment.patientId)) {
-                System.out.println("Enter the RoomNumber :");
-                appointment.roomNumber = scanner.nextLong();
-
-                System.out.println("Enter the Appointment Date like dd-MMM-yyyy");
-                Scanner scanner2 = new Scanner(System.in);
-                appointment.appointmentDate = scanner2.nextLine();
-                SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
-                try {
-                    Date date = formatter.parse(appointment.appointmentDate);
-                } catch (ParseException e) {
-                    e.printStackTrace(); //Print Exception in Details
-                }
-            }
-            else {
-                System.out.println("Patient id is not available");
-            }
-        }
-        else {
-            System.out.println("Doctor id not available ");
-        }
-        appointmentRepo.addAppointment(appointment);
     }
 }
 

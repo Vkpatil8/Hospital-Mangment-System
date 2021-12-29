@@ -5,7 +5,8 @@ import java.util.List;
 
 public class AppointmentRepo {
     private static AppointmentRepo instance;
-    List appointmentList = new ArrayList();
+    List<Appointment>appointmentList = new ArrayList();
+    UserInterface userInterface = UserInterface.getInstance();
 
     AppointmentRepo(){
     }
@@ -16,14 +17,28 @@ public class AppointmentRepo {
         }
         return instance;
     }
-    void addAppointment(Appointment apt)
-    {
-        appointmentList.add(apt);
+
+    void addAppointment() {
+        Appointment appointment = userInterface.addAppointment();
+        appointmentList.add(appointment);
     }
 
-    List getAppointmentList()
-    {
+    List getAppointmentList() {
         return appointmentList;
+    }
+
+    public Appointment getAppointment(String id) {
+
+        for (int i = 0; i < appointmentList.size(); i++) {
+            if(appointmentList.get(i).appointmentId.equals(id)){
+                return appointmentList.get(i);
+            }
+        }
+        return null;
+    }
+
+    public void remove(Appointment appointment) {
+        appointmentList.remove(appointment);
     }
 }
 

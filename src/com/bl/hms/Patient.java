@@ -1,8 +1,5 @@
 package com.bl.hms;
 
-import java.lang.reflect.MalformedParameterizedTypeException;
-import java.util.Map;
-
 public class Patient {
 
     enum Gender{
@@ -11,8 +8,8 @@ public class Patient {
 
     String name, address, emailID, disease, patientId;
     long mobNo, age;
+    Gender gender;
 
-    Map<Gender,String> info;
 
     @Override
     public String toString() {
@@ -24,7 +21,7 @@ public class Patient {
                 ", patientId='" + patientId + '\n' +
                 ", mobNo=" + mobNo + '\n' +
                 ", age=" + age + '\n' +
-                ", info=" + info + '\n' +
+                ", info=" + gender + '\n' +
                 '}';
     }
 }
