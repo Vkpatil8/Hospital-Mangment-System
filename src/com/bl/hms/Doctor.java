@@ -14,7 +14,7 @@ public class Doctor {
     }
 
     enum WeekDays{
-        SUNDAY, MONDAY,TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY;
+        SUNDAY, MONDAY,TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY
     }
 
     String docName;

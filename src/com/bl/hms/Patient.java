@@ -3,13 +3,12 @@ package com.bl.hms;
 public class Patient {
 
     enum Gender{
-        MALE, FEMALE, OTHERS;
+        MALE, FEMALE, OTHERS
     }
 
     String name, address, emailID, disease, patientId;
     long mobNo, age;
     Gender gender;
-
 
     @Override
     public String toString() {

@@ -70,7 +70,7 @@ public class UserInterface {
         System.out.println("Enter Doctor Mobile Name :");
         doctor.mobNo = scanner.nextLong();
 
-        doctor.availability = new HashMap<>();;
+        doctor.availability = new HashMap<>();
         doctor.availability.put(Doctor.WeekDays.SUNDAY,"10 AM to 12 PM");
         doctor.availability.put(Doctor.WeekDays.MONDAY,"12 PM to 2 PM");
         doctor.availability.put(Doctor.WeekDays.TUESDAY,"2 PM to 4 PM");
