@@ -4,15 +4,6 @@ import java.util.Map;
 
 public class Doctor {
 
-    public static Doctor instance;
-
-    public static Doctor getInstance(){
-        if(instance == null){
-            instance = new Doctor();
-        }
-        return instance;
-    }
-
     enum WeekDays{
         SUNDAY, MONDAY,TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY
     }

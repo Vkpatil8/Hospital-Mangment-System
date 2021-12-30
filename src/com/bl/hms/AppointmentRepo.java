@@ -1,11 +1,11 @@
 package com.bl.hms;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class AppointmentRepo {
     private static AppointmentRepo instance;
-    List<Appointment>appointmentList = new ArrayList();
+    HashSet<Appointment> appointmentSet = new HashSet<>();
     UserInterface userInterface = UserInterface.getInstance();
 
     AppointmentRepo(){
@@ -20,25 +20,27 @@ public class AppointmentRepo {
 
     void addAppointment() {
         Appointment appointment = userInterface.addAppointment();
-        appointmentList.add(appointment);
+        appointmentSet.add(appointment);
     }
 
-    List getAppointmentList() {
-        return appointmentList;
+    Set<Appointment> getAppointmentSet() {
+        return appointmentSet;
     }
-
     public Appointment getAppointment(String id) {
-
-        for (int i = 0; i < appointmentList.size(); i++) {
-            if(appointmentList.get(i).appointmentId.equals(id)){
-                return appointmentList.get(i);
-            }
+        for (Appointment appointment : appointmentSet) {
+            return appointment;
         }
         return null;
     }
 
     public void remove(Appointment appointment) {
-        appointmentList.remove(appointment);
+        appointmentSet.remove(appointment);
+    }
+
+    public void printAllAppointment(Set appointmentSet) {
+        for (Object appointment : appointmentSet) {
+            System.out.println(appointment);
+        }
     }
 }
 

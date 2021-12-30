@@ -4,7 +4,7 @@ import java.util.*;
 
 public class PatientRepo {
     public static PatientRepo instance;
-    List <Patient>patientList = new ArrayList();
+    HashSet <Patient> patientSet = new HashSet<>();
     UserInterface userInterface = UserInterface.getInstance();
 
     public static PatientRepo getInstance(){
@@ -15,16 +15,16 @@ public class PatientRepo {
     }
     void addPatient() {
         Patient patient = userInterface.addPatient();
-        patientList.add(patient);
+        patientSet.add(patient);
     }
 
-    List getPatientList() {
-        return  patientList;
+    Set<Patient> getPatientSet() {
+        return patientSet;
     }
 
-    public boolean isPatientAvailable(String doctorId){
-        for (int i = 0; i < patientList.size(); i++ ){
-            if( patientList.get(i).patientId.equals(doctorId)){
+    public boolean isPatientAvailable(String patientId){
+        for (Patient patient : patientSet){
+            if( patient.patientId.equals(patientId)){
                 return true;
             }
         }
@@ -32,16 +32,22 @@ public class PatientRepo {
     }
 
     public Patient getPatient(String id) {
-        for (int i = 0; i < patientList.size(); i++) {
-            if (patientList.get(i).patientId.equals(id)) {
-                return patientList.get(i);
+        for (Patient patient : patientSet) {
+            if (patient.patientId.equals(id)) {
+                return patient;
             }
         }
         return null;
     }
 
     public void remove(Patient patientRemove) {
-        patientList.remove(patientRemove);
+        patientSet.remove(patientRemove);
+    }
+
+    public void printAllPatient(Set patientList) {
+        for (Patient patient : patientSet) {
+            System.out.println(patient);
+        }
     }
 }
 

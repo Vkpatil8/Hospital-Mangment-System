@@ -2,10 +2,7 @@ package com.bl.hms;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class UserInterface {
     private static UserInterface instance;
@@ -26,34 +23,15 @@ public class UserInterface {
                 "\n4.Show All Doctors List \n5.Add Patient \n6.Update Patient \n" +
                 "7.Delete Patient \n8.Show All Patient list \n9.Add Appointment\n" +
                 "10.Update Appointment\n11.Delete Appointment\n" +
-                "12.Show All Appointment list\n13.Exit");
+                "12.Show All Appointment list\n"+Constant.EXIT + ".Exit");
 
         System.out.println("Select Your Option :");
         return scanner.nextInt();
     }
 
-    public void printAllDoctor(List doctorList) {
-        for (int i = 0; i < doctorList.size(); i++) {
-            System.out.println(doctorList.get(i));
-        }
-    }
-
-    public void printAllPatient(List patientList) {
-        for (int i = 0; i < patientList.size(); i++) {
-            System.out.println(patientList.get(i));
-        }
-    }
-
-    public void printAllAppointment(List appointmentList) {
-        for (int i = 0; i < appointmentList.size(); i++) {
-            System.out.println(appointmentList.get(i));
-        }
-    }
-
     public Doctor addDoctor() {
         Scanner scanner = new Scanner(System.in);
-        Doctor doctor = Doctor.getInstance();
-
+        Doctor doctor = new Doctor();
 
         System.out.println("Enter Doctor Name :");
         doctor.docName = scanner.nextLine();
@@ -137,11 +115,11 @@ public class UserInterface {
         appointment.appointmentId = scanner.next();
 
         System.out.println("Enter doctor id");//10
-        appointment.doctorId = scanner.nextLine();
+        appointment.doctorId = scanner.next();
 
         if (doctorRepo.isDoctorAvailable(appointment.doctorId)) {//true
             System.out.println("Enter the PatientId :");
-            appointment.patientId = scanner.nextLine();
+            appointment.patientId = scanner.next();
 
             if(patientRepo.isPatientAvailable(appointment.patientId)) {//true
                 System.out.println("Enter the RoomNumber :");
@@ -149,7 +127,7 @@ public class UserInterface {
 
                 System.out.println("Enter the Appointment Date like dd-MMM-yyyy");
                 Scanner scanner2 = new Scanner(System.in);
-                appointment.appointmentDate = scanner2.nextLine();
+                appointment.appointmentDate = scanner2.next();
                 SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
                 try {
                     Date date = formatter.parse(appointment.appointmentDate);
@@ -168,7 +146,7 @@ public class UserInterface {
     public void updatePatientDetails(Patient updatePatient) {
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.println("Enter what u want to update \n1.patient Name\n2.address\n3.emailID\n4.disease\n5.mobNo\n6.age\n7.Gender\n8.Exit");
+            System.out.println("Enter what u want to update \n1.patient Name\n2.address\n3.emailID\n4.disease\n5.mobNo\n6.age\n7.Gender\n"+Constant.PATIENTEXIT+".Exit");
             int numSelected = scanner.nextInt();
             switch (numSelected) {
                 case 1:
@@ -213,7 +191,7 @@ public class UserInterface {
                             System.out.println("Wrong Option..!");
                     }
                     break;
-                case 8:
+                case Constant.PATIENTEXIT:
                     return;
                 default:
                     System.out.println("Enter correct option plz..");
@@ -225,7 +203,7 @@ public class UserInterface {
     public void updateDoctorDetails(Doctor updateDoctor) {
         Scanner scanner = new Scanner(System.in);
         while (true){
-            System.out.println("Enter where u want to update \n1.docName\n2.specialization\n3.emailID\n4.mobNo\n5.Exit");
+            System.out.println("Enter what u want to update \n1.docName\n2.specialization\n3.emailID\n4.mobNo\n"+Constant.DOCTOREXIT+".Exit");
             int numSelected = scanner.nextInt();
             switch (numSelected) {
                 case 1:
@@ -244,7 +222,7 @@ public class UserInterface {
                     System.out.println("Enter Email");
                     updateDoctor.emailID = scanner.next();
                     break;
-                case 5:
+                case Constant.DOCTOREXIT:
                     return;
                 default:
                     System.out.println("Enter correct option plz..");
@@ -256,12 +234,12 @@ public class UserInterface {
     public void updateAppointmentDetails(Appointment updateAppointment) {
         Scanner scanner = new Scanner(System.in);
         while (true){
-            System.out.println("Enter where u want to update \n1.patientId\n2.doctorId\n3.appointmentDate\n4.roomNumber\n5.Exit");
+            System.out.println("Enter what u want to update \n1.patientId\n2.doctorId\n3.appointmentDate\n4.roomNumber\n"+Constant.APPOINTMENTEXIT+".Exit");
             int numSelected = scanner.nextInt();
             switch (numSelected) {
                 case 1:
                     System.out.println("Enter patientId");
-                    updateAppointment.patientId = scanner.nextLine();
+                    updateAppointment.patientId = scanner.next();
                     break;
                 case 2:
                     System.out.println("Enter doctorId");
@@ -270,7 +248,7 @@ public class UserInterface {
                 case 3:
                     System.out.println("Enter the Appointment Date like dd-MMM-yyyy");
                     Scanner scanner2 = new Scanner(System.in);
-                    updateAppointment.appointmentDate = scanner2.nextLine();
+                    updateAppointment.appointmentDate = scanner2.next();
                     SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
                     try {
                         Date date = formatter.parse(updateAppointment.appointmentDate);
@@ -280,9 +258,10 @@ public class UserInterface {
                     break;
                 case 4:
                     System.out.println("Enter roomNumber");
-                    updateAppointment.doctorId = scanner.next();
+                    updateAppointment.roomNumber = scanner.nextLong();
                     break;
-                case 5:
+                case Constant.APPOINTMENTEXIT:
+                    System.out.println("Successfully update");
                     return;
                 default:
                     System.out.println("Enter correct option plz..");

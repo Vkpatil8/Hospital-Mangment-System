@@ -1,11 +1,11 @@
 package com.bl.hms;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class DoctorRepo {
     public static DoctorRepo instance;
-    private List<Doctor> doctorList = new ArrayList();
+    private HashSet<Doctor> doctorSet = new HashSet<>();
 
     DoctorRepo() {
     }
@@ -18,16 +18,16 @@ public class DoctorRepo {
     }
 
     void addDoctor(Doctor doctor) {
-        doctorList.add(doctor);
+        doctorSet.add(doctor);
     }
 
-    List getDoctorList() {
-        return doctorList;
+    Set<Doctor> getDoctorSet() {
+        return doctorSet;
     }
 
     public boolean isDoctorAvailable(String id) {//10
-        for (int i = 0; i < doctorList.size(); i++) {
-            if (doctorList.get(i).id.equals(id)) {
+        for (Doctor doctor : doctorSet){
+            if (doctor.id.equals(id)) {
                 return true;
             }
         }
@@ -35,16 +35,23 @@ public class DoctorRepo {
     }
 
     public Doctor getDoctor(String id) {
-        for (int i = 0; i < doctorList.size(); i++) {
-            if (doctorList.get(i).id.equals(id)) {
-                return doctorList.get(i);
+        for (Doctor doctor : doctorSet) {
+            if (doctor.id.equals(id)) {
+                return doctor;
             }
         }
         return null;
     }
 
+
     public void remove(Doctor doctor) {
-        doctorList.remove(doctor);
+        doctorSet.remove(doctor);
+    }
+
+    public void printAllDoctor(Set doctorList) {
+        for (Doctor doctor : doctorSet) {
+            System.out.println(doctor);
+        }
     }
 }
 

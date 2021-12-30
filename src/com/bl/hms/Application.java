@@ -5,14 +5,13 @@ import java.util.*;
 public class Application {
 
     public static void main(String[] args) {
-        int exit = 13;
         int option;
         UserInterface userInterface = new UserInterface();
         Application application = new Application();
         do{
             option = userInterface.ShowMainMenu();
             application.handleUserSelection(option);
-        }while (option != exit);
+        }while (option != Constant.EXIT);
     }
 
     void handleUserSelection(int option) {
@@ -44,8 +43,8 @@ public class Application {
                 doctorRepo.remove(doctorRemove);
                 break;
             case 4: // print doctor list
-                List doctorList = doctorRepo.getDoctorList();
-                userInterface.printAllDoctor(doctorList);
+                Set doctorSet = doctorRepo.getDoctorSet();
+                doctorRepo.printAllDoctor(doctorSet);
                 break;
             case 5: // add patient
                 patientRepo.addPatient();
@@ -67,8 +66,8 @@ public class Application {
                 patientRepo.remove(patientRemove);
                 break;
             case 8: // print patient list
-                List lstPatient = patientRepo.getPatientList();
-                userInterface.printAllPatient(lstPatient);
+                Set lstPatient = patientRepo.getPatientSet();
+                patientRepo.printAllPatient(lstPatient);
                 break;
             case 9: // add appointment
                 appointmentRepo.addAppointment();
@@ -82,6 +81,7 @@ public class Application {
                 } else {
                     System.out.println("Enter correct id");
                 }
+                break;
             case 11: // remove appointment
                 System.out.println("Enter Appointment Id");
                 String appointmentID = scanner.next();
@@ -89,10 +89,10 @@ public class Application {
                 appointmentRepo.remove(appointment);
                 break;
             case 12: // print appointment list
-                List listAppointment = appointmentRepo.getAppointmentList();
-                userInterface.printAllAppointment(listAppointment);
+                Set listAppointment = appointmentRepo.getAppointmentSet();
+                appointmentRepo.printAllAppointment(listAppointment);
                 break;
-            case 13:
+            case Constant.EXIT:
                 break;
             default:
                 System.out.println("Wrong Option..!");
