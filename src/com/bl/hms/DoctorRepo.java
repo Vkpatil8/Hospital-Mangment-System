@@ -1,51 +1,57 @@
 package com.bl.hms;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class DoctorRepo {
     public static DoctorRepo instance;
-    private List <Doctor>doctorList = new ArrayList();
-    DoctorRepo(){
+    private HashSet<Doctor> doctorSet = new HashSet<>();
 
+    DoctorRepo() {
     }
 
-    public static DoctorRepo getinstance(){
-        if(instance == null){
+    public static DoctorRepo getInstance() {
+        if (instance == null) {
             instance = new DoctorRepo();
         }
         return instance;
     }
 
-    void addMethod(Doctor dt)
-    {
-        doctorList.add(dt);
+    void addDoctor(Doctor doctor) {
+        doctorSet.add(doctor);
     }
 
-    List getDoctorList()
-    {
-        return doctorList;
+    Set<Doctor> getDoctorSet() {
+        return doctorSet;
     }
 
-    public boolean isDoctorAvailable(String id) {
-        for (int i = 0; i <= doctorList.size(); i++) {
-            if (doctorList.get(i).id.equals(id)) {
+    public boolean isDoctorAvailable(String id) {//10
+        for (Doctor doctor : doctorSet){
+            if (doctor.id.equals(id)) {
                 return true;
             }
         }
         return false;
     }
-    public Doctor getDoctor(String id){
-        for (int i = 0; i <= doctorList.size(); i++) {
-            if (doctorList.get(i).id.equals(id)) {
-             return doctorList.get(i);
-            }
 
+    public Doctor getDoctor(String id) {
+        for (Doctor doctor : doctorSet) {
+            if (doctor.id.equals(id)) {
+                return doctor;
+            }
         }
         return null;
     }
-    public void remove(Doctor doctor){
-        doctorList.remove(doctor);
+
+
+    public void remove(Doctor doctor) {
+        doctorSet.remove(doctor);
+    }
+
+    public void printAllDoctor(Set doctorList) {
+        for (Doctor doctor : doctorSet) {
+            System.out.println(doctor);
+        }
     }
 }
 

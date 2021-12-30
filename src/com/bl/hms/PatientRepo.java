@@ -1,11 +1,11 @@
 package com.bl.hms;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class PatientRepo {
     public static PatientRepo instance;
-    List <Patient>patientList = new ArrayList();
+    HashSet <Patient> patientSet = new HashSet<>();
+    UserInterface userInterface = UserInterface.getInstance();
 
     public static PatientRepo getInstance(){
         if( instance == null ){
@@ -13,23 +13,41 @@ public class PatientRepo {
         }
         return instance;
     }
-    void addPatient(Patient p)
-    {
-        patientList.add(p);
+    void addPatient() {
+        Patient patient = userInterface.addPatient();
+        patientSet.add(patient);
     }
 
-    List getPatientList()
-    {
-        return  patientList;
+    Set<Patient> getPatientSet() {
+        return patientSet;
     }
-    public boolean isPatientAvailable(String doctorId){
 
-        for (int i = 0; i < patientList.size(); i++ ){
-            if( patientList.get(i).patientId.equals(doctorId)){
+    public boolean isPatientAvailable(String patientId){
+        for (Patient patient : patientSet){
+            if( patient.patientId.equals(patientId)){
                 return true;
             }
         }
         return false;
+    }
+
+    public Patient getPatient(String id) {
+        for (Patient patient : patientSet) {
+            if (patient.patientId.equals(id)) {
+                return patient;
+            }
+        }
+        return null;
+    }
+
+    public void remove(Patient patientRemove) {
+        patientSet.remove(patientRemove);
+    }
+
+    public void printAllPatient(Set patientList) {
+        for (Patient patient : patientSet) {
+            System.out.println(patient);
+        }
     }
 }
 

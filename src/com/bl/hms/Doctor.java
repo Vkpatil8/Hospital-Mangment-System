@@ -1,15 +1,17 @@
 package com.bl.hms;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class Doctor {
 
     enum WeekDays{
-        SUNDAY, MONDAY,TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY;
+        SUNDAY, MONDAY,TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY
     }
 
-    String docName, specialization, emailID, id;
+    String docName;
+    String specialization;
+    String emailID;
+    String id;
     long mobNo;
     Map<WeekDays,String> availability;
 

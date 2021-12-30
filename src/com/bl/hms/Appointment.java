@@ -1,9 +1,5 @@
 package com.bl.hms;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 public class Appointment {
 
     String patientId, appointmentId, appointmentDate, doctorId;
