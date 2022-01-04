@@ -1,5 +1,7 @@
 package com.bl.hms;
 
+import java.util.Objects;
+
 public class Patient {
 
     enum Gender{
@@ -8,6 +10,20 @@ public class Patient {
 
     String name, address, emailID, disease, patientId;
     long mobNo, age;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Patient patient = (Patient) o;
+        return mobNo == patient.mobNo || Objects.equals(emailID, patient.emailID) || Objects.equals(patientId, patient.patientId);
+    }
+
+    @Override
+    public int hashCode() {
+        return 5;
+    }
+
     Gender gender;
 
     @Override

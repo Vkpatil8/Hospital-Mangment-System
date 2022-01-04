@@ -1,6 +1,7 @@
 package com.bl.hms;
 
 import java.util.Map;
+import java.util.Objects;
 
 public class Doctor {
 
@@ -12,6 +13,20 @@ public class Doctor {
     String specialization;
     String emailID;
     String id;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Doctor doctor = (Doctor) o;
+        return mobNo == doctor.mobNo || Objects.equals(emailID, doctor.emailID) || Objects.equals(id, doctor.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return 5;
+    }
+
     long mobNo;
     Map<WeekDays,String> availability;
 

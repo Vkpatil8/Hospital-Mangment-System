@@ -7,7 +7,7 @@ public class PatientRepo {
     HashSet <Patient> patientSet = new HashSet<>();
     UserInterface userInterface = UserInterface.getInstance();
 
-    public static PatientRepo getInstance(){
+    public static synchronized PatientRepo getInstance(){
         if( instance == null ){
             instance = new PatientRepo();
         }
