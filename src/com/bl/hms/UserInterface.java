@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class UserInterface {
+    Scanner scanner = new Scanner(System.in);
     private static UserInterface instance;
     UserInterface(){
     }
@@ -15,17 +16,23 @@ public class UserInterface {
         }
         return instance;
     }
-
-    public int ShowMainMenu() {
-        Scanner scanner = new Scanner(System.in);
+    public int Menu(){
         System.out.println("Hospital Management System");
-        System.out.println("1.Add Doctor \n2.Update Doctor \n3.Delete Doctor" +
-                "\n4.Show All Doctors List \n5.Add Patient \n6.Update Patient \n" +
-                "7.Delete Patient \n8.Show All Patient list \n9.Add Appointment\n" +
-                "10.Update Appointment\n11.Delete Appointment\n" +
-                "12.Show All Appointment list\n"+Constant.EXIT + ".Exit");
-
+        System.out.println("Select \n1.Doctor\n2.Patient\n3.Appointment\n"+Constant.EXIT+".Exit");
         System.out.println("Select Your Option :");
+        return scanner.nextInt();
+    }
+    public int showDoctor(){
+        System.out.println("1.Add Doctor \n2.Update Doctor \n3.Delete Doctor\n4.Show All Doctors List\n"+Constant.DOCTOREXIT+".Exit");
+        return scanner.nextInt();
+
+    }
+    public int showPatient(){
+        System.out.println("1.Add Patient \n2.Update Patient \n3.Delete Patient \n4.Show All Patient list\n"+Constant.PATIENTEXIT+".Exit ");
+        return scanner.nextInt();
+    }
+    public int showAppointment(){
+        System.out.println("1.Add Appointment\n2.Update Appointment\n3.Delete Appointment\n4.Show All Appointment list\n"+Constant.APPOINTMENTEXIT+".Exit");
         return scanner.nextInt();
     }
 
@@ -146,7 +153,8 @@ public class UserInterface {
     public void updatePatientDetails(Patient updatePatient) {
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.println("Enter what u want to update \n1.patient Name\n2.address\n3.emailID\n4.disease\n5.mobNo\n6.age\n7.Gender\n"+Constant.PATIENTEXIT+".Exit");
+            System.out.println("Enter what u want to update \n1.patient Name\n2.address\n3.emailID" +
+                    "\n4.disease\n5.mobNo\n6.age\n7.Gender\n"+Constant.UPDATEPATIENTEXIT+".Exit");
             int numSelected = scanner.nextInt();
             switch (numSelected) {
                 case 1:
@@ -191,7 +199,7 @@ public class UserInterface {
                             System.out.println("Wrong Option..!");
                     }
                     break;
-                case Constant.PATIENTEXIT:
+                case Constant.UPDATEPATIENTEXIT:
                     return;
                 default:
                     System.out.println("Enter correct option plz..");
@@ -203,7 +211,8 @@ public class UserInterface {
     public void updateDoctorDetails(Doctor updateDoctor) {
         Scanner scanner = new Scanner(System.in);
         while (true){
-            System.out.println("Enter what u want to update \n1.docName\n2.specialization\n3.emailID\n4.mobNo\n"+Constant.DOCTOREXIT+".Exit");
+            System.out.println("Enter what u want to update \n1.docName\n2.specialization\n3.emailID" +
+                    "\n4.mobNo\n"+Constant.UPDATEDOCTOREXIT+".Exit");
             int numSelected = scanner.nextInt();
             switch (numSelected) {
                 case 1:
@@ -222,7 +231,7 @@ public class UserInterface {
                     System.out.println("Enter Email");
                     updateDoctor.emailID = scanner.next();
                     break;
-                case Constant.DOCTOREXIT:
+                case Constant.UPDATEDOCTOREXIT:
                     return;
                 default:
                     System.out.println("Enter correct option plz..");
@@ -234,7 +243,8 @@ public class UserInterface {
     public void updateAppointmentDetails(Appointment updateAppointment) {
         Scanner scanner = new Scanner(System.in);
         while (true){
-            System.out.println("Enter what u want to update \n1.patientId\n2.doctorId\n3.appointmentDate\n4.roomNumber\n"+Constant.APPOINTMENTEXIT+".Exit");
+            System.out.println("Enter what u want to update \n1.patientId\n2.doctorId\n3.appointmentDate" +
+                    "\n4.roomNumber\n"+Constant.UPDATEAPPOINTMENTEXIT+".Exit");
             int numSelected = scanner.nextInt();
             switch (numSelected) {
                 case 1:
@@ -260,7 +270,7 @@ public class UserInterface {
                     System.out.println("Enter roomNumber");
                     updateAppointment.roomNumber = scanner.nextLong();
                     break;
-                case Constant.APPOINTMENTEXIT:
+                case Constant.UPDATEAPPOINTMENTEXIT:
                     System.out.println("Successfully update");
                     return;
                 default:
